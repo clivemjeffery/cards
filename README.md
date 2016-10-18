@@ -1,1 +1,2 @@
-"# Cards - a card template, scan, process idea" 
+# Cards
+A card template, scan, process idea.
