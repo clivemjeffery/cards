@@ -1,0 +1,5 @@
+ruby jruby
+gem "prawn"
+gem "rqrcode"
+gem "zxing"
+gem "image_voodoo"

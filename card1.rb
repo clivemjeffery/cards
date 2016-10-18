@@ -55,7 +55,7 @@ class Card < Prawn::Document
 	end
 
 	def draw_art
-		image "testartwork.png", at: [15.cm, 15.cm], width: 14.cm
+		image "voocard.jpg", at: [15.cm, 15.cm], width: 14.cm
 		self.line_width = 0.1
 		stroke_rectangle [15.cm, 15.cm], 14.cm, 14.cm
 		text_box "Artwork is approx: 14cm or #{14.cm.pt.round} pixels square.", at: [16.cm, 14.cm]
