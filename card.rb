@@ -3,7 +3,10 @@ require "prawn/measurement_extensions"
 
 class Card < Prawn::Document
 
-	def initialize
+	def initialize(img, child_name, class_group)
+        @img = img
+        @child_name = child_name
+        @class_group = class_group
 		@page_width = 30.cm
 		@page_height = 16.cm
 
@@ -55,10 +58,10 @@ class Card < Prawn::Document
 	end
 
 	def draw_art
-		image "voocard.jpg", at: [15.cm, 15.cm], width: 14.cm
-		self.line_width = 0.1
-		stroke_rectangle [15.cm, 15.cm], 14.cm, 14.cm
-		text_box "Artwork is approx: 14cm or #{14.cm.pt.round} pixels square.", at: [16.cm, 14.cm]
+		image @img, at: [15.cm, 15.cm], width: 14.cm
+		#self.line_width = 0.1
+		#stroke_rectangle [15.cm, 15.cm], 14.cm, 14.cm
+		#text_box "Artwork is approx: 14cm or #{14.cm.pt.round} pixels square.", at: [16.cm, 14.cm]
 	end
 
 	def draw_logo
@@ -66,15 +69,13 @@ class Card < Prawn::Document
 	end
 
 	def write_name
-		child_name = "Anne X Ample"
-		child_age = 5
-		text_box "Drawing by #{child_name}\nAge #{child_age}", at: [1.cm, 2.5.cm], align: :center, width: 14.cm, height: 1.cm
+		text_box "Artwork by #{@child_name} (#{@class_group})", at: [1.cm, 2.5.cm], align: :center, width: 14.cm, height: 1.cm
 	end
 end
 
-# draw cut lines
-# draw school logo
-# draw artwork
-
-pdf = Card.new
-pdf.render_file "card.pdf"
+# 
+# Usage:
+##pdf = Card.new(image, child_name, class_group)
+##pdf.render_file "card.pdf"
+#
+#

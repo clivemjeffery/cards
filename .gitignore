@@ -1,0 +1,9 @@
+*.pdf
+*.png
+cutouts/*
+scans/*
+cards/*
+templates/*
+
+Thumbs.db
+ 
