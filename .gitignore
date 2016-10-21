@@ -1,9 +1,11 @@
 *.pdf
-*.png
+temp_qr.png
 cutouts/*
 scans/*
 cards/*
 templates/*
+scrumpled_test_scans/*
+first_test_scans/*
 
 Thumbs.db
  

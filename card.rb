@@ -29,23 +29,25 @@ class Card < Prawn::Document
 		len = 0.5.cm
 		of1 = 0.8.cm
 		of2 = 1.1.cm
-		horizontal_line 0, len, at: @page_height - of1
-		horizontal_line 0, len, at: @page_height - of2
-		horizontal_line 0, len, at: of1
-		horizontal_line 0, len, at: of2
-		horizontal_line @page_width, @page_width - len, at: @page_height - of1
-		horizontal_line @page_width, @page_width - len, at: @page_height - of2
-		horizontal_line @page_width, @page_width - len, at: of1
-		horizontal_line @page_width, @page_width - len, at: of2
+        stroke do
+            horizontal_line 0, len, at: @page_height - of1
+            horizontal_line 0, len, at: @page_height - of2
+            horizontal_line 0, len, at: of1
+            horizontal_line 0, len, at: of2
+            horizontal_line @page_width, @page_width - len, at: @page_height - of1
+            horizontal_line @page_width, @page_width - len, at: @page_height - of2
+            horizontal_line @page_width, @page_width - len, at: of1
+            horizontal_line @page_width, @page_width - len, at: of2
 
-		vertical_line 0, len, at: of1
-		vertical_line 0, len, at: of2
-		vertical_line 0, len, at: @page_width - of1
-		vertical_line 0, len, at: @page_width - of2
-		vertical_line @page_height, @page_height - len, at: of1
-		vertical_line @page_height, @page_height - len, at: of2
-		vertical_line @page_height, @page_height - len, at: @page_width - of1
-		vertical_line @page_height, @page_height - len, at: @page_width - of2
+            vertical_line 0, len, at: of1
+            vertical_line 0, len, at: of2
+            vertical_line 0, len, at: @page_width - of1
+            vertical_line 0, len, at: @page_width - of2
+            vertical_line @page_height, @page_height - len, at: of1
+            vertical_line @page_height, @page_height - len, at: of2
+            vertical_line @page_height, @page_height - len, at: @page_width - of1
+            vertical_line @page_height, @page_height - len, at: @page_width - of2
+        end
 	end
 
 	def draw_targets

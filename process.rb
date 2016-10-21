@@ -11,7 +11,7 @@ Dir["#{folder}/*.jpg"].each do |fn|
     puts fn
     # Home in on the QRCode to help with reading it
     ImageVoodoo.with_image(fn) do |img|
-        img.with_crop(130, 1230, 350, 1450) do |img2|
+        img.with_crop(200, 1880, 600, 2280) do |img2|
             img2.rotate(270).save "temp_qr.png"
         end
     end
@@ -24,7 +24,7 @@ Dir["#{folder}/*.jpg"].each do |fn|
             @child_name = class_and_name.split(':')[1]
             # cut out artwork and save in cutouts/
             ImageVoodoo.with_image(fn) do |img|
-                img.with_crop(600, 100, 2000, 1500) do |img2|
+                img.with_crop(875, 135, 3055, 2325) do |img2|
                     @artfile = "cutouts/#{@class_group} #{@child_name}.png"
                     img2.rotate(270).save @artfile
                 end
