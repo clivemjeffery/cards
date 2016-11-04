@@ -1,3 +1,4 @@
+*.docx
 *.pdf
 temp_qr.png
 cutouts/*
