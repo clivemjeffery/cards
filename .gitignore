@@ -1,8 +1,10 @@
 *.docx
 *.pdf
 temp_qr.png
+temp_process_code.png
 cutouts/*
 scans/*
+scans_failed/*
 cards/*
 templates/*
 scrumpled_test_scans/*

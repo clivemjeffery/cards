@@ -1,0 +1,6 @@
+Year 6	Y6 Mountain	Aubrey	James	M
+Year 6	Y6 Mountain	Bloom	Benson	M
+Year 6	Y6 Mountain	Blanco-Ferrin	Dennis	M
+Year 6	Y6 Mountain	Campbelltown	Jane-Eliza	F
+Year 6	Y6 Mountain	Gilderson	Courtana	F
+Year 6	Y6 Mountain	Vaux	John	M

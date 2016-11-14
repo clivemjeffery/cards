@@ -6,17 +6,18 @@ require './card'
 folder = ARGV[0]
 puts "Looking for scanned images in #{folder}"
 path = Pathname.new(folder)
+temp_qrcode_filename = "temp_process_code.png"
 
 Dir["#{folder}/*.jpg"].each do |fn|
     puts fn
     # Home in on the QRCode to help with reading it
     ImageVoodoo.with_image(fn) do |img|
-        img.with_crop(200, 1880, 600, 2280) do |img2|
-            img2.rotate(270).save "temp_qr.png"
+        img.with_crop(85, 1755, 600, 2300) do |img2|
+            img2.rotate(270).save temp_qrcode_filename
         end
     end
     # Read QR
-    class_and_name = ZXing.decode "temp_qr.png"
+    class_and_name = ZXing.decode temp_qrcode_filename
     if !class_and_name.nil?
         splat = class_and_name.split(':')
         if splat.length == 2
@@ -24,7 +25,7 @@ Dir["#{folder}/*.jpg"].each do |fn|
             @child_name = class_and_name.split(':')[1]
             # cut out artwork and save in cutouts/
             ImageVoodoo.with_image(fn) do |img|
-                img.with_crop(875, 135, 3055, 2325) do |img2|
+                img.with_crop(1170, 300, 3040, 2170) do |img2|
                     @artfile = "cutouts/#{@class_group} #{@child_name}.png"
                     img2.rotate(270).save @artfile
                 end
