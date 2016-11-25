@@ -1,11 +1,13 @@
 require 'zxing'
 require 'pathname'
+require 'fileutils'
 require 'image_voodoo'
 require './card'
 
 folder = ARGV[0]
+failed_scans_folder = "#{folder}/failed_scans/"
 puts "Looking for scanned images in #{folder}"
-path = Pathname.new(folder)
+
 temp_qrcode_filename = "temp_process_code.png"
 
 Dir["#{folder}/*.jpg"].each do |fn|
@@ -25,7 +27,9 @@ Dir["#{folder}/*.jpg"].each do |fn|
             @child_name = class_and_name.split(':')[1]
             # cut out artwork and save in cutouts/
             ImageVoodoo.with_image(fn) do |img|
-                img.with_crop(1170, 300, 3040, 2170) do |img2|
+				# Originally set to: 1170, 300, 3040, 2170
+				#  moved along x by 30 and y by 20 to avoid box
+                img.with_crop(1200, 320, 3040, 2170) do |img2|
                     @artfile = "cutouts/#{@class_group} #{@child_name}.png"
                     img2.rotate(270).save @artfile
                 end
@@ -38,5 +42,10 @@ Dir["#{folder}/*.jpg"].each do |fn|
         end
     else
         puts "#{fn} - could not read QRCode."
+		if !Dir.exist?(failed_scans_folder)
+			Dir.mkdir(failed_scans_folder)
+		end
+		base = Pathname.new(fn).basename
+		FileUtils.mv(fn, "#{failed_scans_folder}/#{base}")
     end
 end

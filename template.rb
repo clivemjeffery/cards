@@ -46,6 +46,7 @@ class Template < Prawn::Document
         qrcode = RQRCode::QRCode.new("#{login.reg}:#{login.first_name} #{login.last_name}")
         png = qrcode.as_png(size: 120, border_modules: 2)
         IO.write("temp_code.png", png.to_s)
+		image "temp_code.png", at: [0, 120]
         image "temp_code.png", at: [400, 120]
     end
     
@@ -66,39 +67,46 @@ class Template < Prawn::Document
         move_down 10
         text "Parents/carers,"
         move_down 10
-        text "Room for introduction and more information about the fundraiser."
-        move_down 10
-        text "Cards are about 15cm square and are printed and supplied in packs of 12. Your child's name and the school logo are printed on the back. The inside is left blank. This page will be scanned so please ensure that it stays flat and clean. Applique or collage designs are not suitable. Make sure the QRCode, below, is not marked as it is the best way to identify your child's work."
-        bounding_box([40, 40], width: 340) do
-            text "Packs cost £5 each. Please put the number of packs you require in the box on the left and return this form, with payment, by Thursday 17th November."
-            text "Thank you for your support!"
+        text "This year, FONS have decided to do Christmas cards again. All the money raised will go towards the pantomime trip at Christmas. We will use the same local company, Inprint, as we did last time. Your child's name, class and the school logo are printed on the back. The inside is left blank. This page will be scanned so please ensure that it stays flat and clean. Applique or collage designs are not suitable. Please make sure the QRCodes, below, are not marked as they make it easy to identify your child's work."
+        bounding_box([130, 110], width: 250) do
+            text "The cards will come in packs of 12, with envelopes, at the cost of £5 per pack. You may order as many packs as you require. Could you please put the money in an evelope marked 'Christmas Cards'. Cheques should be made payable to 'FONS'. Please send your designs and money back to school before Monday 21st November."
+			move_down 20
+			text "Number of packs.", indent_paragraphs: 40
         end
-        stroke_rectangle [0, 40], 30, 30
+        stroke_rectangle [130, 35], 30, 30
     end
 end
 
-logins = Array.new
 
-# open the text file
-fn = ARGV[0]
-f = File.open("#{fn}", "r")
 $stdout.sync = true # avoid need to flush prints
 # Hide error triggered by £ sign in footer.
 Prawn::Font::AFM.hide_m17n_warning = true
 
-# loop through each record in the pupils.mash file from Rooster adding each record to our array.
-f.each_line { |line|
-	fields = line.split("\t")
-	login = Login.new
-	login.year = fields[0]
-	login.reg = fields[1]
-	login.last_name = fields[2]
-	login.first_name = fields[3]
-	login.gender = fields[4]
-    logins.push(login)
-}
 
-puts "Ready to create template pdf for pupils in file #{fn}"
-pdf = Template.new(logins)
-pdf.render_file "./templates/#{logins[0].reg}.pdf"
+
+# open a folder and look for text files
+folder = ARGV[0]
+puts "Looking for class lists in #{folder}"
+path = Pathname.new(folder)
+Dir["#{folder}/*.txt"].each do |fn|
+    puts "Reading file #{fn}"
+	f = File.open("#{fn}", "r")
+	logins = Array.new
+	# loop through each record in the pupils.mash file from Rooster adding each record to our array.
+	f.each_line { |line|
+		fields = line.split("\t")
+		login = Login.new
+		login.year = fields[0]
+		login.reg = fields[1]
+		login.last_name = fields[2]
+		login.first_name = fields[3]
+		login.gender = fields[4]
+		logins.push(login)
+	}
+
+	puts "Ready to create template pdf for pupils in file #{fn}"
+	pdf = Template.new(logins)
+	pdf.render_file "./templates/#{logins[0].reg}.pdf"
+	puts "#{fn} done."
+end
 puts "All done."
