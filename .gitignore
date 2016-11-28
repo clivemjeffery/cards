@@ -1,7 +1,7 @@
 *.docx
 *.pdf
 temp_qr.png
-temp_process_code.png
+temp_process_code*.png
 cutouts/*
 scans/*
 scans_failed/*
